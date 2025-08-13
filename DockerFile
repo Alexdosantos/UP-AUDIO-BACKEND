@@ -1,0 +1,20 @@
+FROM node:22.18.0-alpine
+
+WORKDIR /app
+
+# Copia package.json e package-lock.json
+COPY package*.json ./
+
+# Instala dependências
+RUN npm install
+
+# Copia código e schema.prisma
+COPY prisma ./prisma
+COPY . .
+
+# Gera Prisma Client já para o ambiente Linux
+RUN npx prisma generate
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start:dev"]
