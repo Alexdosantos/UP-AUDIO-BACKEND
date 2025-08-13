@@ -1,5 +1,6 @@
 import { DeepgramRepository } from "@app/repositories/deepgramRepository";
 import { TranscriptionRepository } from "@app/repositories/transcriptionRepository";
+import { TranscribeDto } from "@app/dtos/transcribeDto";
 
 export class TranscribeService {
   constructor(
@@ -26,9 +27,11 @@ export class TranscribeService {
     return await this.transcriptionRepository.getAllTranscriptions();
   }
 
-  async deleteTranscription(transcriptionId: number) {
-    return await this.transcriptionRepository.deleteTranscription(
-      transcriptionId
-    );
+  async findTranscriptionById(id: number) {
+    return await this.transcriptionRepository.findTranscriptionById(id);
+  }
+
+  async deleteTranscription(id: number) {
+    return await this.transcriptionRepository.deleteTranscription(id);
   }
 }

@@ -20,12 +20,23 @@ export class TranscribeController {
     return res.status(200).json(transcriptions);
   }
 
-  async deleteTranscription(req: Request, res: Response) {
-    const transcriptionId = req.params.id;
-    if (!transcriptionId) {
-      return res.status(400).json({ error: "Transcription ID is required" });
+  async getTranscriptionById(req: Request, res: Response) {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: "Invalid ID" });
     }
-    await this.transcribeService.deleteTranscription(+transcriptionId);
+    const transcription = await this.transcribeService.findTranscriptionById(
+      +id
+    );
+    return res.status(200).json(transcription);
+  }
+
+  async deleteTranscription(req: Request, res: Response) {
+    const id =req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
+    await this.transcribeService.deleteTranscription(+id);
     return res
       .status(200)
       .json({ message: "Transcription deleted successfully" });

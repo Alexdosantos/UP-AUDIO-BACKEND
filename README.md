@@ -42,6 +42,21 @@ Conta com upload de arquivos via **Multer**, persistência de dados com **Prisma
 | @types/multer   | ^2.0.0  | Tipos para Multer                   |
 
 ---
+### API Interna - `/api/transcribe`
+
+Além disso, a aplicação integra com uma API própria para gerenciamento de dados de transcrição, com os seguintes endpoints REST:
+
+| Método  | Endpoint                   | Descrição                        |
+|---------|----------------------------|---------------------------------|
+| `POST`  | `/api/transcribe/create`       | Cria uma nova transcrição  obrigatório passar arquivo no form-data nome do arquivo audio       |
+| `GET`   | `/api/transcribe/all`          | Retorna todas as transcrições     |
+| `GET`   | `/api/transcribe/find/:id`     | Busca transcrição pelo ID              |
+| `DELETE`| `/api/transcribe/delete/:id`   | Remove transcrição pelo ID             |
+
+
+Esses endpoints são utilizados para funcionalidades administrativas da aplicação, como criação, edição e exclusão de dados de transcrição.
+
+---
 
 ### Gere sua apikey no Deepgram
 

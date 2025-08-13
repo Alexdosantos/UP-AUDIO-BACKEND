@@ -1,6 +1,7 @@
 import { Router } from "express";
 import TranscribeModule from "@app/module/TranscribeModule";
 import multer from "multer";
+import { asyncWrapper } from "src/middlewares/asyncWrapper";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -17,15 +18,19 @@ const { transcribeController } = TranscribeModule.instance();
 router.post(
   "/create",
   upload.single("audio"),
-  transcribeController.transcribeAudioFile.bind(transcribeController)
+  asyncWrapper(transcribeController.transcribeAudioFile.bind(transcribeController))
 );
 router.get(
   "/all",
-  transcribeController.getAllTranscriptions.bind(transcribeController)
+  asyncWrapper(transcribeController.getAllTranscriptions.bind(transcribeController))
 );
 router.delete(
   "/delete/:id",
-  transcribeController.deleteTranscription.bind(transcribeController)
+  asyncWrapper(transcribeController.deleteTranscription.bind(transcribeController))
+);
+router.get(
+  "/find/:id",
+  asyncWrapper(transcribeController.getTranscriptionById.bind(transcribeController))
 );
 
 export default router;

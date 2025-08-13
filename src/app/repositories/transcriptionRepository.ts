@@ -18,9 +18,9 @@ export class TranscriptionRepository {
     return await this.prisma.transcription.findMany();
   }
 
-  async findTranscriptionById(transcriptionId: number) {
+  async findTranscriptionById(id: number) {
     const transcription = await this.prisma.transcription.findUnique({
-      where: { id: transcriptionId },
+      where: { id },
     });
     if (!transcription) {
       throw new HttpError("Transcription not found", 404);
@@ -28,15 +28,15 @@ export class TranscriptionRepository {
     return transcription;
   }
 
-  async deleteTranscription(transcriptionId: number) {
+  async deleteTranscription(id: number) {
     const transcription = await this.prisma.transcription.findUnique({
-      where: { id: transcriptionId },
+      where: { id },
     });
     if (!transcription) {
       throw new HttpError("Transcription not found by id", 404);
     }
     return await this.prisma.transcription.delete({
-      where: { id: transcriptionId },
+      where: { id },
     });
   }
 }
